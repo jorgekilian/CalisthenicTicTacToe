@@ -4,8 +4,7 @@ using NUnit.Framework;
 namespace Calisthenic {
     public class TicTacToeSpecs {
         [SetUp]
-        public void Setup() {
-        }
+        public void Setup() { }
 
         // Tablero de 3x3
         // X siempre juega primero
@@ -51,7 +50,7 @@ namespace Calisthenic {
             board.Roll(player, pos);
 
             // El tablero tiene en la posición x,y la marca del jugador correspondiente
-            Assert.AreEqual(board.GetPosition(pos), "X");
+            Assert.AreEqual(board.Position(pos), "X");
         }
 
         [Test]
@@ -63,54 +62,104 @@ namespace Calisthenic {
             var pos = new Position(4, 4);
             var player = new Player("X");
 
+            // Lanzar excepción
             Assert.Throws<MovementNotAllowed>(() => board.Roll(player, pos));
         }
-    }
 
-    public class MovementNotAllowed : Exception { }
+        [Test]
+        public void roll_and_set_counter() {
+            // Dado un tablero
+            var board = new TicTacToeBoard();
 
-    public class Player {
-        public string Piece { get; }
+            // Realizo dos jugada en la posición x e y por parte de un jugador
+            var pos1 = new Position(1, 1);
+            var player1 = new Player("X");
+            board.Roll(player1, pos1);
 
-        public Player(string piece) {
-            Piece = piece;
+            var pos2 = new Position(1, 0);
+            var player2 = new Player("Y");
+            board.Roll(player2, pos2);
+
+            // El contador de tiradas debe ser 2
+            Assert.AreEqual(board.RollNumber(), 2);
         }
 
-    }
+        [Test]
+        public void roll_and_set_counter_till_nine() {
+            // Dado un tablero y dos jugadores
+            var board = new TicTacToeBoard();
+            var player1 = new Player("X");
+            var player2 = new Player("Y");
 
-    public class Position {
-        public int X { get; }
-        public int Y { get; }
 
-        public Position(int x, int y) {
-            X = x;
-            Y = y;
+            // Realizo 10 jugadas 
+            board.Roll(player1, new Position(0, 0));
+            board.Roll(player2, new Position(1, 0));
+            board.Roll(player1, new Position(2, 0));
+            board.Roll(player1, new Position(0, 1));
+            board.Roll(player2, new Position(1, 1));
+            board.Roll(player1, new Position(2, 1));
+            board.Roll(player1, new Position(0, 2));
+            board.Roll(player2, new Position(1, 2));
+            board.Roll(player1, new Position(2, 2));
+
+            board.Roll(player1, new Position(0, 0));
+
+            // El contador de tiradas debe ser 9
+            Assert.AreEqual(board.RollNumber(), 9);
         }
 
-    }
+        public class MovementNotAllowed : Exception { }
 
-    public class TicTacToeBoard {
-        private readonly string[,] size = new string[3, 3];
+        public class Player {
+            public string Piece { get; }
 
-        public TicTacToeBoard() {
-            size[0, 0] = string.Empty;
-            size[0, 1] = string.Empty;
-            size[0, 2] = string.Empty;
-            size[1, 0] = string.Empty;
-            size[1, 1] = string.Empty;
-            size[1, 2] = string.Empty;
-            size[2, 0] = string.Empty;
-            size[2, 1] = string.Empty;
-            size[2, 2] = string.Empty;
+            public Player(string piece) {
+                Piece = piece;
+            }
+
         }
 
-        public void Roll(Player player, Position pos) {
-            if (pos.X > 3 || pos.Y > 3) throw new MovementNotAllowed(); 
-            size[pos.X, pos.Y] = player.Piece;
+        public class Position {
+            public int X { get; }
+            public int Y { get; }
+
+            public Position(int x, int y) {
+                X = x;
+                Y = y;
+            }
+
         }
 
-        public string GetPosition(Position pos) {
-            return size[pos.X, pos.Y];
+        public class TicTacToeBoard {
+            private readonly string[,] size = new string[3, 3];
+            private int rollNumber = 0;
+
+            public TicTacToeBoard() {
+                size[0, 0] = string.Empty;
+                size[0, 1] = string.Empty;
+                size[0, 2] = string.Empty;
+                size[1, 0] = string.Empty;
+                size[1, 1] = string.Empty;
+                size[1, 2] = string.Empty;
+                size[2, 0] = string.Empty;
+                size[2, 1] = string.Empty;
+                size[2, 2] = string.Empty;
+            }
+
+            public void Roll(Player player, Position pos) {
+                if (pos.X > 3 || pos.Y > 3) throw new MovementNotAllowed();
+                if (rollNumber < 9) rollNumber++;
+                size[pos.X, pos.Y] = player.Piece;
+            }
+
+            public string Position(Position pos) {
+                return size[pos.X, pos.Y];
+            }
+
+            public int RollNumber() {
+                return rollNumber;
+            }
         }
     }
 }
