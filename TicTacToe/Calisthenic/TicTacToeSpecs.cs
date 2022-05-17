@@ -1,8 +1,7 @@
-using System;
 using NUnit.Framework;
 
 namespace Calisthenic {
-    public class TicTacToeSpecs {
+    public partial class TicTacToeSpecs {
         [SetUp]
         public void Setup() { }
 
@@ -22,13 +21,13 @@ namespace Calisthenic {
         //      Comprobar que por cada tirada se comprueba que el contador suma 1
         // El máximo de tiradas sería 9
         //      A la tirada 9, no aumentará el contador
-        //      A la tirada que pretenda hacer despues se devolverá una excepción
         // X solo puede tirar en jugadas impares
         //      La jugada del jugador X debe ser en tirada impar
         // O solo puede tirar en jugadas pares
         //      La jugada del jugador O debe ser en tirada par
         // A la novena tirada se devuelve empate
         //      Devolver empate
+        // No se puede realizar una tirada sobre una casilla que ya tenga una ficha
         // Es imposible que nadie gane antes de la tirada 5
         //      No se debe llamar al proceso que chequea  antes
         // Justo despues de cada tirada entre la 5 y la 9, se deberá comprobar si el jugador que tiró ha ganado
@@ -96,70 +95,31 @@ namespace Calisthenic {
             board.Roll(player1, new Position(0, 0));
             board.Roll(player2, new Position(1, 0));
             board.Roll(player1, new Position(2, 0));
-            board.Roll(player1, new Position(0, 1));
-            board.Roll(player2, new Position(1, 1));
-            board.Roll(player1, new Position(2, 1));
+            board.Roll(player2, new Position(0, 1));
+            board.Roll(player1, new Position(1, 1));
+            board.Roll(player2, new Position(2, 1));
             board.Roll(player1, new Position(0, 2));
             board.Roll(player2, new Position(1, 2));
             board.Roll(player1, new Position(2, 2));
 
-            board.Roll(player1, new Position(0, 0));
+            board.Roll(player2, new Position(0, 0));
 
             // El contador de tiradas debe ser 9
             Assert.AreEqual(board.RollNumber(), 9);
         }
 
-        public class MovementNotAllowed : Exception { }
+        [Test]
+        public void player1_cannot_roll_on_even_movement() {
+            // Dado un tablero y dos jugadores
+            var board = new TicTacToeBoard();
+            var player1 = new Player("X");
+            var player2 = new Player("Y");
 
-        public class Player {
-            public string Piece { get; }
+            // Realizo 2 jugadas seguidas del jugador 1
+            board.Roll(player1, new Position(0, 0));
 
-            public Player(string piece) {
-                Piece = piece;
-            }
-
-        }
-
-        public class Position {
-            public int X { get; }
-            public int Y { get; }
-
-            public Position(int x, int y) {
-                X = x;
-                Y = y;
-            }
-
-        }
-
-        public class TicTacToeBoard {
-            private readonly string[,] size = new string[3, 3];
-            private int rollNumber = 0;
-
-            public TicTacToeBoard() {
-                size[0, 0] = string.Empty;
-                size[0, 1] = string.Empty;
-                size[0, 2] = string.Empty;
-                size[1, 0] = string.Empty;
-                size[1, 1] = string.Empty;
-                size[1, 2] = string.Empty;
-                size[2, 0] = string.Empty;
-                size[2, 1] = string.Empty;
-                size[2, 2] = string.Empty;
-            }
-
-            public void Roll(Player player, Position pos) {
-                if (pos.X > 3 || pos.Y > 3) throw new MovementNotAllowed();
-                if (rollNumber < 9) rollNumber++;
-                size[pos.X, pos.Y] = player.Piece;
-            }
-
-            public string Position(Position pos) {
-                return size[pos.X, pos.Y];
-            }
-
-            public int RollNumber() {
-                return rollNumber;
-            }
+            // Lanzar excepción
+            Assert.Throws<MovementNotAllowed>(() => board.Roll(player1, new Position(1, 0)));
         }
     }
 }
