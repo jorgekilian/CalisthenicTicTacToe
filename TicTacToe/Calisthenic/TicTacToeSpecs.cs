@@ -112,14 +112,23 @@ namespace Calisthenic {
         public void player1_cannot_roll_on_even_movement() {
             // Dado un tablero y dos jugadores
             var board = new TicTacToeBoard();
-            var player1 = new Player("X");
-            var player2 = new Player("Y");
+            var player = new Player("X");
 
             // Realizo 2 jugadas seguidas del jugador 1
-            board.Roll(player1, new Position(0, 0));
+            board.Roll(player, new Position(0, 0));
 
             // Lanzar excepción
-            Assert.Throws<MovementNotAllowed>(() => board.Roll(player1, new Position(1, 0)));
+            Assert.Throws<MovementNotAllowed>(() => board.Roll(player, new Position(1, 0)));
+        }
+
+        [Test]
+        public void player2_cannot_roll_on_odd_movement() {
+            // Dado un tablero y dos jugadores
+            var board = new TicTacToeBoard();
+            var player = new Player("Y");
+
+            // Lanzar excepción si es el primero q tira
+            Assert.Throws<MovementNotAllowed>(() => board.Roll(player, new Position(1, 0)));
         }
     }
 }
