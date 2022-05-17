@@ -76,7 +76,7 @@ namespace Calisthenic {
             board.Roll(player1, pos1);
 
             var pos2 = new Position(1, 0);
-            var player2 = new Player("Y");
+            var player2 = new Player("O");
             board.Roll(player2, pos2);
 
             // El contador de tiradas debe ser 2
@@ -88,7 +88,7 @@ namespace Calisthenic {
             // Dado un tablero y dos jugadores
             var board = new TicTacToeBoard();
             var player1 = new Player("X");
-            var player2 = new Player("Y");
+            var player2 = new Player("O");
 
 
             // Realizo 10 jugadas 
@@ -125,7 +125,7 @@ namespace Calisthenic {
         public void player2_cannot_roll_on_odd_movement() {
             // Dado un tablero y dos jugadores
             var board = new TicTacToeBoard();
-            var player = new Player("Y");
+            var player = new Player("O");
 
             // Lanzar excepción si es el primero q tira
             Assert.Throws<MovementNotAllowed>(() => board.Roll(player, new Position(1, 0)));

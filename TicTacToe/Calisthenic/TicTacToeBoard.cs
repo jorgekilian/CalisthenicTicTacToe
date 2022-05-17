@@ -19,7 +19,7 @@ namespace Calisthenic {
             public void Roll(Player player, Position pos) {
                 if (pos.X > 3 || pos.Y > 3) throw new MovementNotAllowed();
                 if (((rollNumber + 1) % 2 == 0 ) && player.Piece == "X") throw new MovementNotAllowed();
-                if (((rollNumber + 1) % 2 == 1) && player.Piece == "Y") throw new MovementNotAllowed();
+                if (((rollNumber + 1) % 2 == 1) && player.Piece == "O") throw new MovementNotAllowed();
                 if (rollNumber < 9) rollNumber++;
                 size[pos.X, pos.Y] = player.Piece;
             }
