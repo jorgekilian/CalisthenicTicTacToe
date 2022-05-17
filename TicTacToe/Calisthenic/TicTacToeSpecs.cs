@@ -53,7 +53,21 @@ namespace Calisthenic {
             // El tablero tiene en la posición x,y la marca del jugador correspondiente
             Assert.AreEqual(board.GetPosition(pos), "X");
         }
+
+        [Test]
+        public void roll_and_throw_exception_when_set_the_player_out_of_the_board() {
+            // Dado un tablero
+            var board = new TicTacToeBoard();
+
+            // Realizo una jugada en la posición x e y por parte de un jugador fuera del tablero
+            var pos = new Position(4, 4);
+            var player = new Player("X");
+
+            Assert.Throws<MovementNotAllowed>(() => board.Roll(player, pos));
+        }
     }
+
+    public class MovementNotAllowed : Exception { }
 
     public class Player {
         public string Piece { get; }
@@ -91,6 +105,7 @@ namespace Calisthenic {
         }
 
         public void Roll(Player player, Position pos) {
+            if (pos.X > 3 || pos.Y > 3) throw new MovementNotAllowed(); 
             size[pos.X, pos.Y] = player.Piece;
         }
 
