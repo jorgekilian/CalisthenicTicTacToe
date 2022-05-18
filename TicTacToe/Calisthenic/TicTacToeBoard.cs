@@ -22,6 +22,7 @@ namespace Calisthenic {
                 CheckMovement(player, pos);
                 if (rollNumber < 9) rollNumber++;
                 status = TicTacToeStatus.Playing;
+                if (rollNumber == 9) status = TicTacToeStatus.Draw;
                 size[pos.X, pos.Y] = player.Piece;
             }
 
@@ -47,6 +48,7 @@ namespace Calisthenic {
 
     public enum TicTacToeStatus {
         NotStarted,
-        Playing
+        Playing,
+        Draw
     }
 }

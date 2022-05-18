@@ -157,5 +157,29 @@ namespace Calisthenic {
             Assert.AreEqual(board.Status(), TicTacToeStatus.Playing);
 
         }
+
+        [Test]
+        public void match_status_is_draw_after_nine_rolls() {
+            // Dado un tablero y dos jugadores
+            var board = new TicTacToeBoard();
+            var player1 = new Player("X");
+            var player2 = new Player("O");
+
+
+            // Realizo 9 jugadas 
+            board.Roll(player1, new Position(0, 0));
+            board.Roll(player2, new Position(1, 0));
+            board.Roll(player1, new Position(2, 0));
+            board.Roll(player2, new Position(0, 1));
+            board.Roll(player1, new Position(1, 1));
+            board.Roll(player2, new Position(2, 1));
+            board.Roll(player1, new Position(0, 2));
+            board.Roll(player2, new Position(1, 2));
+            board.Roll(player1, new Position(2, 2));
+
+            // El estado es Draw
+            Assert.AreEqual(board.Status(), TicTacToeStatus.Draw);
+
+        }
     }
 }
