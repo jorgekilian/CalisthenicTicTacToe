@@ -3,6 +3,7 @@ namespace Calisthenic {
         public class TicTacToeBoard {
             private readonly string[,] size = new string[3, 3];
             private int rollNumber = 0;
+            private TicTacToeStatus status;
 
             public TicTacToeBoard() {
                 size[0, 0] = string.Empty;
@@ -14,6 +15,7 @@ namespace Calisthenic {
                 size[2, 0] = string.Empty;
                 size[2, 1] = string.Empty;
                 size[2, 2] = string.Empty;
+                status = TicTacToeStatus.NotStarted;
             }
 
             public void Roll(Player player, Position pos) {
@@ -21,6 +23,7 @@ namespace Calisthenic {
                 if (((rollNumber + 1) % 2 == 0 ) && player.Piece == "X") throw new MovementNotAllowed();
                 if (((rollNumber + 1) % 2 == 1) && player.Piece == "O") throw new MovementNotAllowed();
                 if (rollNumber < 9) rollNumber++;
+                status = TicTacToeStatus.Playing;
                 size[pos.X, pos.Y] = player.Piece;
             }
 
@@ -31,6 +34,15 @@ namespace Calisthenic {
             public int RollNumber() {
                 return rollNumber;
             }
+
+            public TicTacToeStatus Status() {
+                return status;
+            }
         }
+    }
+
+    public enum TicTacToeStatus {
+        NotStarted,
+        Playing
     }
 }

@@ -26,6 +26,8 @@ namespace Calisthenic {
         // O solo puede tirar en jugadas pares
         //      La jugada del jugador O debe ser en tirada par
         // A la novena tirada se devuelve empate
+        //      Devolver No Iniciado si no hay tiradas
+        //      Devolver jugando desde 1 a 8
         //      Devolver empate
         // No se puede realizar una tirada sobre una casilla que ya tenga una ficha
         // Es imposible que nadie gane antes de la tirada 5
@@ -129,6 +131,31 @@ namespace Calisthenic {
 
             // Lanzar excepción si es el primero q tira
             Assert.Throws<MovementNotAllowed>(() => board.Roll(player, new Position(1, 0)));
+        }
+
+        [Test]
+        public void match_status_is_not_started_when_any_player_has_rolled() {
+            // Dado un tablero
+            var board = new TicTacToeBoard();
+
+            // El estado es NotStarted
+            Assert.AreEqual(board.Status(), TicTacToeStatus.NotStarted);
+
+        }
+
+        [Test]
+        public void match_status_is_playing_when_some_player_has_rolled() {
+            // Dado un tablero
+            var board = new TicTacToeBoard();
+
+            // Realizo una jugada en la posición x e y por parte de un jugador
+            var pos = new Position(0, 0);
+            var player = new Player("X");
+            board.Roll(player, pos);
+
+            // El estado es Playing
+            Assert.AreEqual(board.Status(), TicTacToeStatus.Playing);
+
         }
     }
 }
