@@ -30,6 +30,7 @@ namespace Calisthenic {
                 if (pos.X > 3 || pos.Y > 3) throw new MovementNotAllowed();
                 if (((rollNumber + 1) % 2 == 0) && player.Piece == "X") throw new MovementNotAllowed();
                 if (((rollNumber + 1) % 2 == 1) && player.Piece == "O") throw new MovementNotAllowed();
+                if (size[pos.X,pos.Y] != string.Empty ) throw new MovementNotAllowed();
             }
 
             public string Position(Position pos) {

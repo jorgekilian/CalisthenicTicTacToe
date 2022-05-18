@@ -104,8 +104,8 @@ namespace Calisthenic {
             board.Roll(player2, new Position(1, 2));
             board.Roll(player1, new Position(2, 2));
 
-            board.Roll(player2, new Position(0, 0));
-
+            // Lanzar exceptción
+            Assert.Throws<MovementNotAllowed>(() => board.Roll(player2, new Position(0, 0)));
             // El contador de tiradas debe ser 9
             Assert.AreEqual(board.RollNumber(), 9);
         }
@@ -179,6 +179,22 @@ namespace Calisthenic {
 
             // El estado es Draw
             Assert.AreEqual(board.Status(), TicTacToeStatus.Draw);
+
+        }
+
+        [Test]
+        public void not_allow_roll_over_cell_filled() {
+            // Dado un tablero y dos jugadores
+            var board = new TicTacToeBoard();
+            var player1 = new Player("X");
+            var player2 = new Player("O");
+
+
+            // Realizo 2 jugadas sobre la misma casilla
+            board.Roll(player1, new Position(0, 0));
+            
+            // Lanzar exceptción
+            Assert.Throws<MovementNotAllowed>(() => board.Roll(player2, new Position(0, 0))); 
 
         }
     }
