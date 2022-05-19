@@ -31,32 +31,27 @@ namespace Calisthenic {
             }
             public virtual void CheckWinner(Position pos) {
                 // Busco arriba y abajo a partir de pos 
-                if (CheckVertical(pos)) return ;
+                if (CheckVertical(pos)) return;
             }
 
             private bool CheckVertical(Position pos) {
                 var piece = size[pos.X, pos.Y];
                 if (pos.Y == 0 && piece == size[pos.X, pos.Y + 1] && piece == size[pos.X, pos.Y + 2]) {
-                    SetWinner(piece);
-                    return true;
+                    return SetWinner(piece);
                 }
-
                 if (pos.Y == 1 && piece == size[pos.X, pos.Y - 1] && piece == size[pos.X, pos.Y + 1]) {
-                    SetWinner(piece);
-                    return true;
+                    return SetWinner(piece);
                 }
-
                 if (pos.Y == 2 && piece == size[pos.X, pos.Y - 2] && piece == size[pos.X, pos.Y - 1]) {
-                    SetWinner(piece);
-                    return true;
+                    return SetWinner(piece);
                 }
-
                 return false;
             }
 
-            private void SetWinner(string piece) {
+            private bool SetWinner(string piece) {
                 status = TicTacToeStatus.Player1Winner;
                 if (piece == "O") status = TicTacToeStatus.Player2Winner;
+                return true;
             }
 
             private void CheckMovement(Player player, Position pos) {
