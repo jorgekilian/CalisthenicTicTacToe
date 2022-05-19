@@ -154,11 +154,11 @@ namespace Calisthenic {
             board.Roll(player1, new Position(0, 0));
             board.Roll(player2, new Position(1, 0));
             board.Roll(player1, new Position(2, 0));
-            board.Roll(player2, new Position(0, 1));
-            board.Roll(player1, new Position(1, 1));
+            board.Roll(player2, new Position(1, 1));
+            board.Roll(player1, new Position(0, 1));
             board.Roll(player2, new Position(2, 1));
-            board.Roll(player1, new Position(0, 2));
-            board.Roll(player2, new Position(1, 2));
+            board.Roll(player1, new Position(1, 2));
+            board.Roll(player2, new Position(0, 2));
             board.Roll(player1, new Position(2, 2));
 
             // El estado es Draw
