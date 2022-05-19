@@ -31,25 +31,32 @@ namespace Calisthenic {
             }
             public virtual void CheckWinner(Position pos) {
                 // Busco arriba y abajo a partir de pos 
+                if (CheckVertical(pos)) return ;
+            }
+
+            private bool CheckVertical(Position pos) {
                 var piece = size[pos.X, pos.Y];
-                if (pos.Y == 0) {
-                    if (piece == size[pos.X, pos.Y + 1] && piece == size[pos.X, pos.Y + 2]) {
-                        status = TicTacToeStatus.Player1Winner;
-                        if (piece == "O") status = TicTacToeStatus.Player2Winner;
-                    }
+                if (pos.Y == 0 && piece == size[pos.X, pos.Y + 1] && piece == size[pos.X, pos.Y + 2]) {
+                    SetWinner(piece);
+                    return true;
                 }
-                if (pos.Y == 1) {
-                    if (piece == size[pos.X, pos.Y - 1] && piece == size[pos.X, pos.Y + 1]) {
-                        status = TicTacToeStatus.Player1Winner;
-                        if (piece == "O") status = TicTacToeStatus.Player2Winner;
-                    }
+
+                if (pos.Y == 1 && piece == size[pos.X, pos.Y - 1] && piece == size[pos.X, pos.Y + 1]) {
+                    SetWinner(piece);
+                    return true;
                 }
-                if (pos.Y == 2) {
-                    if (piece == size[pos.X, pos.Y - 2] && piece == size[pos.X, pos.Y - 1]) {
-                        status = TicTacToeStatus.Player1Winner;
-                        if (piece == "O") status = TicTacToeStatus.Player2Winner;
-                    }
+
+                if (pos.Y == 2 && piece == size[pos.X, pos.Y - 2] && piece == size[pos.X, pos.Y - 1]) {
+                    SetWinner(piece);
+                    return true;
                 }
+
+                return false;
+            }
+
+            private void SetWinner(string piece) {
+                status = TicTacToeStatus.Player1Winner;
+                if (piece == "O") status = TicTacToeStatus.Player2Winner;
             }
 
             private void CheckMovement(Player player, Position pos) {
