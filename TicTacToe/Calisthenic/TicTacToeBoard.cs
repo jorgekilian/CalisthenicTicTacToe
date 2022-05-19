@@ -1,3 +1,6 @@
+using System;
+using NUnit.Framework.Constraints;
+
 namespace Calisthenic {
     public partial class TicTacToeSpecs {
         public class TicTacToeBoard {
@@ -24,10 +27,29 @@ namespace Calisthenic {
                 status = TicTacToeStatus.Playing;
                 if (rollNumber == 9) status = TicTacToeStatus.Draw;
                 size[pos.X, pos.Y] = player.Piece;
-                if (rollNumber >= 5) CheckWinner();
+                if (rollNumber >= 5) CheckWinner(pos);
             }
-            public virtual void CheckWinner() {
-
+            public virtual void CheckWinner(Position pos) {
+                // Busco arriba y abajo a partir de pos 
+                var piece = size[pos.X, pos.Y];
+                if (pos.Y == 0) {
+                    if (piece == size[pos.X, pos.Y + 1] && piece == size[pos.X, pos.Y + 2]) {
+                        status = TicTacToeStatus.Player1Winner;
+                        if (piece == "O") status = TicTacToeStatus.Player2Winner;
+                    }
+                }
+                if (pos.Y == 1) {
+                    if (piece == size[pos.X, pos.Y - 1] && piece == size[pos.X, pos.Y + 1]) {
+                        status = TicTacToeStatus.Player1Winner;
+                        if (piece == "O") status = TicTacToeStatus.Player2Winner;
+                    }
+                }
+                if (pos.Y == 2) {
+                    if (piece == size[pos.X, pos.Y - 2] && piece == size[pos.X, pos.Y - 1]) {
+                        status = TicTacToeStatus.Player1Winner;
+                        if (piece == "O") status = TicTacToeStatus.Player2Winner;
+                    }
+                }
             }
 
             private void CheckMovement(Player player, Position pos) {
@@ -80,6 +102,7 @@ namespace Calisthenic {
         NotStarted,
         Playing,
         Draw,
-        Player1Winner
+        Player1Winner,
+        Player2Winner
     }
 }

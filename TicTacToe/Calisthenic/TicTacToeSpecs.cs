@@ -195,7 +195,7 @@ namespace Calisthenic {
             mBoard.Roll(player1, new Position(1, 1));
 
             // Debe llamarse al metodo que chequea si hay ganador
-            mBoard.Received().CheckWinner();
+            mBoard.Received().CheckWinner(Arg.Any<Position>());
         }
 
         [Test]
@@ -212,7 +212,7 @@ namespace Calisthenic {
             mBoard.Roll(player2, new Position(1, 0));
 
             // No debe llamarse al metodo que chequea si hay ganador
-            mBoard.DidNotReceive().CheckWinner();
+            mBoard.DidNotReceive().CheckWinner(Arg.Any<Position>());
         }
 
         [Test]
@@ -227,8 +227,25 @@ namespace Calisthenic {
             board.Roll(player2, new Position(2, 0));
             board.Roll(player1, new Position(1, 2));
 
-            // El estado es Draw
+            // El estado es Player 1 Wins
             Assert.AreEqual(board.Status(), TicTacToeStatus.Player1Winner);
+        }
+
+        [Test]
+        public void player2_wins_the_match_vertical_line() {
+            var player1 = new Player("X");
+            var player2 = new Player("O");
+
+            // Realizo 6 jugadas 
+            board.Roll(player1, new Position(0, 0));
+            board.Roll(player2, new Position(1, 0));
+            board.Roll(player1, new Position(2, 0));
+            board.Roll(player2, new Position(1, 1));
+            board.Roll(player1, new Position(2, 1));
+            board.Roll(player2, new Position(1, 2));
+
+            // El estado es Player 2 Wins
+            Assert.AreEqual(board.Status(), TicTacToeStatus.Player2Winner);
         }
     }
 }
