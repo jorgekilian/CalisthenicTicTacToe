@@ -1,3 +1,4 @@
+using NSubstitute;
 using NUnit.Framework;
 
 namespace Calisthenic {
@@ -181,7 +182,37 @@ namespace Calisthenic {
 
         [Test]
         public void call_the_checkwinner_method_when_rollnumber_is_5_or_greater() {
+            var player1 = new Player("X");
+            var player2 = new Player("O");
 
+            var mBoard = Substitute.For<TicTacToeBoard>();
+
+            // Realizo 5 jugadas 
+            mBoard.Roll(player1, new Position(0, 0));
+            mBoard.Roll(player2, new Position(0, 1));
+            mBoard.Roll(player1, new Position(0, 2));
+            mBoard.Roll(player2, new Position(1, 0));
+            mBoard.Roll(player1, new Position(1, 1));
+
+            // Debe llamarse al metodo que chequea si hay ganador
+            mBoard.Received().CheckWinner();
+        }
+
+        [Test]
+        public void donot_call_the_checkwinner_method_when_rollnumber_is_4_or_lower() {
+            var player1 = new Player("X");
+            var player2 = new Player("O");
+
+            var mBoard = Substitute.For<TicTacToeBoard>();
+
+            // Realizo 4 jugadas 
+            mBoard.Roll(player1, new Position(0, 0));
+            mBoard.Roll(player2, new Position(0, 1));
+            mBoard.Roll(player1, new Position(0, 2));
+            mBoard.Roll(player2, new Position(1, 0));
+
+            // No debe llamarse al metodo que chequea si hay ganador
+            mBoard.DidNotReceive().CheckWinner();
         }
     }
 }

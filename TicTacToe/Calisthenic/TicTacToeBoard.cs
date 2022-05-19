@@ -24,6 +24,7 @@ namespace Calisthenic {
                 status = TicTacToeStatus.Playing;
                 if (rollNumber == 9) status = TicTacToeStatus.Draw;
                 size[pos.X, pos.Y] = player.Piece;
+                if (rollNumber >= 5) CheckWinner();
             }
 
             private void CheckMovement(Player player, Position pos) {
@@ -43,6 +44,10 @@ namespace Calisthenic {
 
             public TicTacToeStatus Status() {
                 return status;
+            }
+
+            public virtual void CheckWinner() {
+                
             }
         }
     }
