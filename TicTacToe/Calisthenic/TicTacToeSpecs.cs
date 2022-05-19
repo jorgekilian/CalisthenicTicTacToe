@@ -329,5 +329,22 @@ namespace Calisthenic {
             // El estado es Player 1 Wins
             Assert.AreEqual(board.Status(), TicTacToeStatus.Player1Winner);
         }
+
+        [Test]
+        public void player2_wins_the_match_diagonal_downright_line() {
+            var player1 = new Player("X");
+            var player2 = new Player("O");
+
+            // Realizo 5 jugadas 
+            board.Roll(player1, new Position(1, 0));
+            board.Roll(player2, new Position(2, 0));
+            board.Roll(player1, new Position(1, 2));
+            board.Roll(player2, new Position(1, 1));
+            board.Roll(player1, new Position(0, 1));
+            board.Roll(player2, new Position(0, 2));
+
+            // El estado es Player 1 Wins
+            Assert.AreEqual(board.Status(), TicTacToeStatus.Player2Winner);
+        }
     }
 }
