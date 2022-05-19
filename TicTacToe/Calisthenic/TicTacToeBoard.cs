@@ -1,6 +1,3 @@
-using System;
-using NUnit.Framework.Constraints;
-
 namespace Calisthenic {
     public partial class TicTacToeSpecs {
         public class TicTacToeBoard {
@@ -33,6 +30,22 @@ namespace Calisthenic {
                 // Busco arriba y abajo a partir de pos 
                 if (CheckVertical(pos)) return;
                 if (CheckHorizontal(pos)) return;
+                if (CheckDiagonalUpLeft(pos)) return;
+            }
+
+            private bool CheckDiagonalUpLeft(Position pos) {
+                if (pos.X != pos.Y) return false;
+                var piece = size[pos.X, pos.Y];
+                if (pos.X == 0 && piece == size[pos.X + 1, pos.Y + 1] && piece == size[pos.X + 2, pos.Y + 2]) {
+                    return SetWinner(piece);
+                }
+                if (pos.X == 1 && piece == size[pos.X - 1, pos.Y - 1] && piece == size[pos.X + 1, pos.Y + 1]) {
+                    return SetWinner(piece);
+                }
+                if (pos.X == 2 && piece == size[pos.X - 1, pos.Y - 1] && piece == size[pos.X - 2, pos.Y - 2]) {
+                    return SetWinner(piece);
+                }
+                return false;
             }
 
             private bool CheckHorizontal(Position pos) {
@@ -47,7 +60,6 @@ namespace Calisthenic {
                     return SetWinner(piece);
                 }
                 return false;
-
             }
 
             private bool CheckVertical(Position pos) {
