@@ -27,10 +27,23 @@ namespace Calisthenic {
                 if (rollNumber >= 5) CheckWinner(pos);
             }
             public virtual void CheckWinner(Position pos) {
-                // Busco arriba y abajo a partir de pos 
                 if (CheckVertical(pos)) return;
                 if (CheckHorizontal(pos)) return;
                 if (CheckDiagonalUpLeft(pos)) return;
+                CheckDiagonalDownRight(pos);
+            }
+
+            private void CheckDiagonalDownRight(Position pos) {
+                var piece = size[pos.X, pos.Y];
+                if (pos.X == 2 && pos.Y == 0 && piece == size[pos.X - 1, pos.Y + 1] && piece == size[pos.X - 2, pos.Y + 2]) {
+                    SetWinner(piece);
+                }
+                if (pos.X == 1 && pos.Y == 1 && piece == size[pos.X + 1, pos.Y - 1] && piece == size[pos.X - 1, pos.Y + 2]) {
+                    SetWinner(piece);
+                }
+                if (pos.X == 0 && pos.Y == 2 && piece == size[pos.X + 1, pos.Y - 1] && piece == size[pos.X + 2, pos.Y - 2]) {
+                    SetWinner(piece);
+                }
             }
 
             private bool CheckDiagonalUpLeft(Position pos) {
