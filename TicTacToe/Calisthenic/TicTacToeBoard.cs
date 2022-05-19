@@ -32,6 +32,22 @@ namespace Calisthenic {
             public virtual void CheckWinner(Position pos) {
                 // Busco arriba y abajo a partir de pos 
                 if (CheckVertical(pos)) return;
+                if (CheckHorizontal(pos)) return;
+            }
+
+            private bool CheckHorizontal(Position pos) {
+                var piece = size[pos.X, pos.Y];
+                if (pos.X == 0 && piece == size[pos.X + 1, pos.Y] && piece == size[pos.X + 2, pos.Y]) {
+                    return SetWinner(piece);
+                }
+                if (pos.X == 1 && piece == size[pos.X - 1, pos.Y] && piece == size[pos.X + 1, pos.Y]) {
+                    return SetWinner(piece);
+                }
+                if (pos.X == 2 && piece == size[pos.X - 2, pos.Y] && piece == size[pos.X - 1, pos.Y]) {
+                    return SetWinner(piece);
+                }
+                return false;
+
             }
 
             private bool CheckVertical(Position pos) {
