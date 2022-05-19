@@ -35,13 +35,7 @@ namespace Calisthenic {
 
             private void CheckDiagonalDownRight(Position pos) {
                 var piece = size[pos.X, pos.Y];
-                if (pos.X == 2 && pos.Y == 0 && piece == size[pos.X - 1, pos.Y + 1] && piece == size[pos.X - 2, pos.Y + 2]) {
-                    SetWinner(piece);
-                }
-                if (pos.X == 1 && pos.Y == 1 && piece == size[pos.X + 1, pos.Y - 1] && piece == size[pos.X - 1, pos.Y + 2]) {
-                    SetWinner(piece);
-                }
-                if (pos.X == 0 && pos.Y == 2 && piece == size[pos.X + 1, pos.Y - 1] && piece == size[pos.X + 2, pos.Y - 2]) {
+                if (piece == size[2, 0] && piece == size[1, 1] && piece == size[0, 2]) {
                     SetWinner(piece);
                 }
             }
@@ -49,13 +43,7 @@ namespace Calisthenic {
             private bool CheckDiagonalUpLeft(Position pos) {
                 if (pos.X != pos.Y) return false;
                 var piece = size[pos.X, pos.Y];
-                if (pos.X == 0 && piece == size[pos.X + 1, pos.Y + 1] && piece == size[pos.X + 2, pos.Y + 2]) {
-                    return SetWinner(piece);
-                }
-                if (pos.X == 1 && piece == size[pos.X - 1, pos.Y - 1] && piece == size[pos.X + 1, pos.Y + 1]) {
-                    return SetWinner(piece);
-                }
-                if (pos.X == 2 && piece == size[pos.X - 1, pos.Y - 1] && piece == size[pos.X - 2, pos.Y - 2]) {
+                if (piece == size[0, 0] && piece == size[1, 1] && piece == size[2, 2]) {
                     return SetWinner(piece);
                 }
                 return false;
@@ -63,13 +51,13 @@ namespace Calisthenic {
 
             private bool CheckHorizontal(Position pos) {
                 var piece = size[pos.X, pos.Y];
-                if (pos.X == 0 && piece == size[pos.X + 1, pos.Y] && piece == size[pos.X + 2, pos.Y]) {
+                if (pos.X == 0 && piece == size[1, pos.Y] && piece == size[2, pos.Y]) {
                     return SetWinner(piece);
                 }
-                if (pos.X == 1 && piece == size[pos.X - 1, pos.Y] && piece == size[pos.X + 1, pos.Y]) {
+                if (pos.X == 1 && piece == size[0, pos.Y] && piece == size[2, pos.Y]) {
                     return SetWinner(piece);
                 }
-                if (pos.X == 2 && piece == size[pos.X - 2, pos.Y] && piece == size[pos.X - 1, pos.Y]) {
+                if (pos.X == 2 && piece == size[0, pos.Y] && piece == size[1, pos.Y]) {
                     return SetWinner(piece);
                 }
                 return false;
@@ -77,13 +65,13 @@ namespace Calisthenic {
 
             private bool CheckVertical(Position pos) {
                 var piece = size[pos.X, pos.Y];
-                if (pos.Y == 0 && piece == size[pos.X, pos.Y + 1] && piece == size[pos.X, pos.Y + 2]) {
+                if (pos.Y == 0 && piece == size[pos.X, 1] && piece == size[pos.X, 2]) {
                     return SetWinner(piece);
                 }
-                if (pos.Y == 1 && piece == size[pos.X, pos.Y - 1] && piece == size[pos.X, pos.Y + 1]) {
+                if (pos.Y == 1 && piece == size[pos.X, 0] && piece == size[pos.X, 2]) {
                     return SetWinner(piece);
                 }
-                if (pos.Y == 2 && piece == size[pos.X, pos.Y - 2] && piece == size[pos.X, pos.Y - 1]) {
+                if (pos.Y == 2 && piece == size[pos.X, 0] && piece == size[pos.X, 1]) {
                     return SetWinner(piece);
                 }
                 return false;
