@@ -2,8 +2,6 @@ using NUnit.Framework;
 
 namespace Calisthenic {
     public partial class TicTacToeSpecs {
-        [SetUp]
-        public void Setup() { }
 
         // Tablero de 3x3
         // X siempre juega primero
@@ -40,11 +38,16 @@ namespace Calisthenic {
         //          --  Valores en diagonal abajo-derecha     \
         //          --  Teniendo en cuenta si está en un borde
 
+        private TicTacToeBoard board;
+
+        [SetUp]
+        public void Setup() {
+            // Dado un tablero
+            board = new TicTacToeBoard();
+        }
+
         [Test]
         public void roll_and_set_the_player_into_the_board() {
-            // Dado un tablero
-            var board = new TicTacToeBoard();
-
             // Realizo una jugada en la posición x e y por parte de un jugador
             var pos = new Position(0, 0);
             var player = new Player("X");
@@ -56,9 +59,6 @@ namespace Calisthenic {
 
         [Test]
         public void roll_and_throw_exception_when_set_the_player_out_of_the_board() {
-            // Dado un tablero
-            var board = new TicTacToeBoard();
-
             // Realizo una jugada en la posición x e y por parte de un jugador fuera del tablero
             var pos = new Position(4, 4);
             var player = new Player("X");
@@ -69,9 +69,6 @@ namespace Calisthenic {
 
         [Test]
         public void roll_and_set_counter() {
-            // Dado un tablero
-            var board = new TicTacToeBoard();
-
             // Realizo dos jugada en la posición x e y por parte de un jugador
             var pos1 = new Position(1, 1);
             var player1 = new Player("X");
@@ -87,8 +84,6 @@ namespace Calisthenic {
 
         [Test]
         public void roll_and_set_counter_till_nine() {
-            // Dado un tablero y dos jugadores
-            var board = new TicTacToeBoard();
             var player1 = new Player("X");
             var player2 = new Player("O");
 
@@ -112,8 +107,6 @@ namespace Calisthenic {
 
         [Test]
         public void player1_cannot_roll_on_even_movement() {
-            // Dado un tablero y dos jugadores
-            var board = new TicTacToeBoard();
             var player = new Player("X");
 
             // Realizo 2 jugadas seguidas del jugador 1
@@ -125,8 +118,6 @@ namespace Calisthenic {
 
         [Test]
         public void player2_cannot_roll_on_odd_movement() {
-            // Dado un tablero y dos jugadores
-            var board = new TicTacToeBoard();
             var player = new Player("O");
 
             // Lanzar excepción si es el primero q tira
@@ -135,9 +126,6 @@ namespace Calisthenic {
 
         [Test]
         public void match_status_is_not_started_when_any_player_has_rolled() {
-            // Dado un tablero
-            var board = new TicTacToeBoard();
-
             // El estado es NotStarted
             Assert.AreEqual(board.Status(), TicTacToeStatus.NotStarted);
 
@@ -145,9 +133,6 @@ namespace Calisthenic {
 
         [Test]
         public void match_status_is_playing_when_some_player_has_rolled() {
-            // Dado un tablero
-            var board = new TicTacToeBoard();
-
             // Realizo una jugada en la posición x e y por parte de un jugador
             var pos = new Position(0, 0);
             var player = new Player("X");
@@ -160,8 +145,6 @@ namespace Calisthenic {
 
         [Test]
         public void match_status_is_draw_after_nine_rolls() {
-            // Dado un tablero y dos jugadores
-            var board = new TicTacToeBoard();
             var player1 = new Player("X");
             var player2 = new Player("O");
 
@@ -184,8 +167,6 @@ namespace Calisthenic {
 
         [Test]
         public void not_allow_roll_over_cell_filled() {
-            // Dado un tablero y dos jugadores
-            var board = new TicTacToeBoard();
             var player1 = new Player("X");
             var player2 = new Player("O");
 
@@ -195,6 +176,11 @@ namespace Calisthenic {
             
             // Lanzar exceptción
             Assert.Throws<MovementNotAllowed>(() => board.Roll(player2, new Position(0, 0))); 
+
+        }
+
+        [Test]
+        public void call_the_checkwinner_method_when_rollnumber_is_5_or_greater() {
 
         }
     }
