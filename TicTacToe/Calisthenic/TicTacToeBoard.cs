@@ -26,12 +26,39 @@ namespace Calisthenic {
                 size[pos.X, pos.Y] = player.Piece;
                 if (rollNumber >= 5) CheckWinner();
             }
+            public virtual void CheckWinner() {
+
+            }
 
             private void CheckMovement(Player player, Position pos) {
-                if (pos.X > 3 || pos.Y > 3) throw new MovementNotAllowed();
-                if (((rollNumber + 1) % 2 == 0) && player.Piece == "X") throw new MovementNotAllowed();
-                if (((rollNumber + 1) % 2 == 1) && player.Piece == "O") throw new MovementNotAllowed();
-                if (size[pos.X,pos.Y] != string.Empty ) throw new MovementNotAllowed();
+                if (OutOfBoardMovement(pos)) throw new MovementNotAllowed();
+                if (EventMovement() && IsPlayer1(player)) throw new MovementNotAllowed();
+                if (OddMovement() && IsPlayer2(player)) throw new MovementNotAllowed();
+                if (NonEmptyCellMovement(pos)) throw new MovementNotAllowed();
+            }
+
+            private bool NonEmptyCellMovement(Position pos) {
+                return size[pos.X, pos.Y] != string.Empty;
+            }
+
+            private static bool OutOfBoardMovement(Position pos) {
+                return pos.X > 3 || pos.Y > 3;
+            }
+
+            private bool OddMovement() {
+                return (rollNumber + 1) % 2 == 1;
+            }
+
+            private bool EventMovement() {
+                return (rollNumber + 1) % 2 == 0;
+            }
+
+            private bool IsPlayer2(Player player) {
+                return player.Piece == "O";
+            }
+
+            private bool IsPlayer1(Player player) {
+                return player.Piece == "X";
             }
 
             public string Position(Position pos) {
@@ -46,15 +73,13 @@ namespace Calisthenic {
                 return status;
             }
 
-            public virtual void CheckWinner() {
-                
-            }
         }
     }
 
     public enum TicTacToeStatus {
         NotStarted,
         Playing,
-        Draw
+        Draw,
+        Player1Winner
     }
 }
