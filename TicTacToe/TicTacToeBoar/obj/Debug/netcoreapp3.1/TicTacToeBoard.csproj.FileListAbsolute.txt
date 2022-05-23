@@ -1,0 +1,10 @@
+C:\AIDA\Formacion\CalisthenicTicTacToe\TicTacToe\TicTacToeBoar\bin\Debug\netcoreapp3.1\TicTacToeBoard.deps.json
+C:\AIDA\Formacion\CalisthenicTicTacToe\TicTacToe\TicTacToeBoar\bin\Debug\netcoreapp3.1\TicTacToeBoard.dll
+C:\AIDA\Formacion\CalisthenicTicTacToe\TicTacToe\TicTacToeBoar\bin\Debug\netcoreapp3.1\TicTacToeBoard.pdb
+C:\AIDA\Formacion\CalisthenicTicTacToe\TicTacToe\TicTacToeBoar\obj\Debug\netcoreapp3.1\TicTacToeBoard.csproj.AssemblyReference.cache
+C:\AIDA\Formacion\CalisthenicTicTacToe\TicTacToe\TicTacToeBoar\obj\Debug\netcoreapp3.1\TicTacToeBoard.GeneratedMSBuildEditorConfig.editorconfig
+C:\AIDA\Formacion\CalisthenicTicTacToe\TicTacToe\TicTacToeBoar\obj\Debug\netcoreapp3.1\TicTacToeBoard.AssemblyInfoInputs.cache
+C:\AIDA\Formacion\CalisthenicTicTacToe\TicTacToe\TicTacToeBoar\obj\Debug\netcoreapp3.1\TicTacToeBoard.AssemblyInfo.cs
+C:\AIDA\Formacion\CalisthenicTicTacToe\TicTacToe\TicTacToeBoar\obj\Debug\netcoreapp3.1\TicTacToeBoard.csproj.CoreCompileInputs.cache
+C:\AIDA\Formacion\CalisthenicTicTacToe\TicTacToe\TicTacToeBoar\obj\Debug\netcoreapp3.1\TicTacToeBoard.dll
+C:\AIDA\Formacion\CalisthenicTicTacToe\TicTacToe\TicTacToeBoar\obj\Debug\netcoreapp3.1\TicTacToeBoard.pdb

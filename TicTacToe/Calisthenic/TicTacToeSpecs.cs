@@ -2,7 +2,7 @@ using NSubstitute;
 using NUnit.Framework;
 
 namespace Calisthenic {
-    public partial class TicTacToeSpecs {
+    public class TicTacToeSpecs {
 
         // Tablero de 3x3
         // X siempre juega primero
@@ -174,9 +174,9 @@ namespace Calisthenic {
 
             // Realizo 2 jugadas sobre la misma casilla
             board.Roll(player1, new Position(0, 0));
-            
+
             // Lanzar exceptción
-            Assert.Throws<MovementNotAllowed>(() => board.Roll(player2, new Position(0, 0))); 
+            Assert.Throws<MovementNotAllowed>(() => board.Roll(player2, new Position(0, 0)));
 
         }
 

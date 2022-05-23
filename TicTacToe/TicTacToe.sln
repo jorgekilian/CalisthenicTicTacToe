@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32413.511
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calisthenic", "Calisthenic\Calisthenic.csproj", "{1524E5CC-D569-4409-A84A-29A86084A450}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calisthenic", "Calisthenic\Calisthenic.csproj", "{1524E5CC-D569-4409-A84A-29A86084A450}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToeBoard", "TicTacToeBoar\TicTacToeBoard.csproj", "{A2DFCB05-F589-44AE-90BC-96B80863FB57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1524E5CC-D569-4409-A84A-29A86084A450}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1524E5CC-D569-4409-A84A-29A86084A450}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1524E5CC-D569-4409-A84A-29A86084A450}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2DFCB05-F589-44AE-90BC-96B80863FB57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2DFCB05-F589-44AE-90BC-96B80863FB57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2DFCB05-F589-44AE-90BC-96B80863FB57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2DFCB05-F589-44AE-90BC-96B80863FB57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
