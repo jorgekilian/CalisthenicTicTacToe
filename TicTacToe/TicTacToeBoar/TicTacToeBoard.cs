@@ -84,8 +84,8 @@ namespace TicTacToeBoard {
 
         private void CheckMovement(Player player, Position pos) {
             if (OutOfBoardMovement(pos)) throw new MovementNotAllowed();
-            if (EventMovement() && IsPlayer1(player)) throw new MovementNotAllowed();
-            if (OddMovement() && IsPlayer2(player)) throw new MovementNotAllowed();
+            if (EventMovement() && player.IsPlayer1()) throw new MovementNotAllowed();
+            if (OddMovement() && player.IsPlayer2()) throw new MovementNotAllowed();
             if (NonEmptyCellMovement(pos)) throw new MovementNotAllowed();
         }
 
@@ -103,14 +103,6 @@ namespace TicTacToeBoard {
 
         private bool EventMovement() {
             return (rollNumber + 1) % 2 == 0;
-        }
-
-        private bool IsPlayer2(Player player) {
-            return player.Piece == "O";
-        }
-
-        private bool IsPlayer1(Player player) {
-            return player.Piece == "X";
         }
 
         public string Position(Position pos) {

@@ -6,5 +6,12 @@ namespace TicTacToeBoard {
             Piece = piece;
         }
 
+        public bool IsPlayer2() {
+            return Piece == "O";
+        }
+
+        public bool IsPlayer1() {
+            return Piece == "X";
+        }
     }
 }
