@@ -43,34 +43,28 @@ namespace Calisthenic {
 
         [SetUp]
         public void Setup() {
-            // Dado un tablero
             board = new TicTacToeBoard();
         }
 
         [Test]
         public void roll_and_set_the_player_into_the_board() {
-            // Realizo una jugada en la posición x e y por parte de un jugador
             var pos = new Position(0, 0);
             var player = new Player("X");
             board.Roll(player, pos);
 
-            // El tablero tiene en la posición x,y la marca del jugador correspondiente
             Assert.AreEqual(board.Position(pos), "X");
         }
 
         [Test]
         public void roll_and_throw_exception_when_set_the_player_out_of_the_board() {
-            // Realizo una jugada en la posición x e y por parte de un jugador fuera del tablero
             var pos = new Position(4, 4);
             var player = new Player("X");
 
-            // Lanzar excepción
             Assert.Throws<MovementNotAllowed>(() => board.Roll(player, pos));
         }
 
         [Test]
         public void roll_and_set_counter() {
-            // Realizo dos jugada en la posición x e y por parte de un jugador
             var pos1 = new Position(1, 1);
             var player1 = new Player("X");
             board.Roll(player1, pos1);
@@ -79,7 +73,6 @@ namespace Calisthenic {
             var player2 = new Player("O");
             board.Roll(player2, pos2);
 
-            // El contador de tiradas debe ser 2
             Assert.AreEqual(board.RollNumber(), 2);
         }
 
@@ -89,7 +82,6 @@ namespace Calisthenic {
             var player2 = new Player("O");
 
 
-            // Realizo 10 jugadas 
             board.Roll(player1, new Position(0, 0));
             board.Roll(player2, new Position(1, 0));
             board.Roll(player1, new Position(2, 0));
@@ -100,9 +92,8 @@ namespace Calisthenic {
             board.Roll(player2, new Position(1, 2));
             board.Roll(player1, new Position(2, 2));
 
-            // Lanzar exceptción
             Assert.Throws<MovementNotAllowed>(() => board.Roll(player2, new Position(0, 0)));
-            // El contador de tiradas debe ser 9
+            
             Assert.AreEqual(board.RollNumber(), 9);
         }
 
@@ -110,10 +101,8 @@ namespace Calisthenic {
         public void player1_cannot_roll_on_even_movement() {
             var player = new Player("X");
 
-            // Realizo 2 jugadas seguidas del jugador 1
             board.Roll(player, new Position(0, 0));
 
-            // Lanzar excepción
             Assert.Throws<MovementNotAllowed>(() => board.Roll(player, new Position(1, 0)));
         }
 
@@ -121,25 +110,21 @@ namespace Calisthenic {
         public void player2_cannot_roll_on_odd_movement() {
             var player = new Player("O");
 
-            // Lanzar excepción si es el primero q tira
             Assert.Throws<MovementNotAllowed>(() => board.Roll(player, new Position(1, 0)));
         }
 
         [Test]
         public void match_status_is_not_started_when_any_player_has_rolled() {
-            // El estado es NotStarted
             Assert.AreEqual(board.Status(), TicTacToeStatus.NotStarted);
 
         }
 
         [Test]
         public void match_status_is_playing_when_some_player_has_rolled() {
-            // Realizo una jugada en la posición x e y por parte de un jugador
             var pos = new Position(0, 0);
             var player = new Player("X");
             board.Roll(player, pos);
 
-            // El estado es Playing
             Assert.AreEqual(board.Status(), TicTacToeStatus.Playing);
 
         }
@@ -150,7 +135,6 @@ namespace Calisthenic {
             var player2 = new Player("O");
 
 
-            // Realizo 9 jugadas 
             board.Roll(player1, new Position(0, 0));
             board.Roll(player2, new Position(1, 0));
             board.Roll(player1, new Position(2, 0));
@@ -161,7 +145,6 @@ namespace Calisthenic {
             board.Roll(player2, new Position(0, 2));
             board.Roll(player1, new Position(2, 2));
 
-            // El estado es Draw
             Assert.AreEqual(board.Status(), TicTacToeStatus.Draw);
 
         }
@@ -172,10 +155,8 @@ namespace Calisthenic {
             var player2 = new Player("O");
 
 
-            // Realizo 2 jugadas sobre la misma casilla
             board.Roll(player1, new Position(0, 0));
 
-            // Lanzar exceptción
             Assert.Throws<MovementNotAllowed>(() => board.Roll(player2, new Position(0, 0)));
 
         }
@@ -187,14 +168,12 @@ namespace Calisthenic {
 
             var mBoard = Substitute.For<TicTacToeBoard>();
 
-            // Realizo 5 jugadas 
             mBoard.Roll(player1, new Position(0, 0));
             mBoard.Roll(player2, new Position(0, 1));
             mBoard.Roll(player1, new Position(0, 2));
             mBoard.Roll(player2, new Position(1, 0));
             mBoard.Roll(player1, new Position(1, 1));
 
-            // Debe llamarse al metodo que chequea si hay ganador
             mBoard.Received().CheckWinner(Arg.Any<Position>());
         }
 
@@ -205,13 +184,11 @@ namespace Calisthenic {
 
             var mBoard = Substitute.For<TicTacToeBoard>();
 
-            // Realizo 4 jugadas 
             mBoard.Roll(player1, new Position(0, 0));
             mBoard.Roll(player2, new Position(0, 1));
             mBoard.Roll(player1, new Position(0, 2));
             mBoard.Roll(player2, new Position(1, 0));
 
-            // No debe llamarse al metodo que chequea si hay ganador
             mBoard.DidNotReceive().CheckWinner(Arg.Any<Position>());
         }
 
@@ -220,14 +197,12 @@ namespace Calisthenic {
             var player1 = new Player("X");
             var player2 = new Player("O");
 
-            // Realizo 5 jugadas 
             board.Roll(player1, new Position(1, 0));
             board.Roll(player2, new Position(0, 0));
             board.Roll(player1, new Position(1, 1));
             board.Roll(player2, new Position(2, 0));
             board.Roll(player1, new Position(1, 2));
 
-            // El estado es Player 1 Wins
             Assert.AreEqual(board.Status(), TicTacToeStatus.Player1Winner);
         }
 
@@ -236,7 +211,6 @@ namespace Calisthenic {
             var player1 = new Player("X");
             var player2 = new Player("O");
 
-            // Realizo 6 jugadas 
             board.Roll(player1, new Position(0, 0));
             board.Roll(player2, new Position(1, 0));
             board.Roll(player1, new Position(2, 0));
@@ -244,7 +218,6 @@ namespace Calisthenic {
             board.Roll(player1, new Position(2, 1));
             board.Roll(player2, new Position(1, 2));
 
-            // El estado es Player 2 Wins
             Assert.AreEqual(board.Status(), TicTacToeStatus.Player2Winner);
         }
 
@@ -253,14 +226,12 @@ namespace Calisthenic {
             var player1 = new Player("X");
             var player2 = new Player("O");
 
-            // Realizo 5 jugadas 
             board.Roll(player1, new Position(0, 0));
             board.Roll(player2, new Position(1, 0));
             board.Roll(player1, new Position(0, 1));
             board.Roll(player2, new Position(2, 1));
             board.Roll(player1, new Position(0, 2));
 
-            // El estado es Player 1 Wins
             Assert.AreEqual(board.Status(), TicTacToeStatus.Player1Winner);
         }
 
@@ -269,7 +240,6 @@ namespace Calisthenic {
             var player1 = new Player("X");
             var player2 = new Player("O");
 
-            // Realizo 6 jugadas 
             board.Roll(player1, new Position(1, 0));
             board.Roll(player2, new Position(0, 0));
             board.Roll(player1, new Position(1, 1));
@@ -277,7 +247,6 @@ namespace Calisthenic {
             board.Roll(player1, new Position(2, 2));
             board.Roll(player2, new Position(0, 2));
 
-            // El estado es Player 2 Wins
             Assert.AreEqual(board.Status(), TicTacToeStatus.Player2Winner);
         }
 
@@ -286,14 +255,12 @@ namespace Calisthenic {
             var player1 = new Player("X");
             var player2 = new Player("O");
 
-            // Realizo 5 jugadas 
             board.Roll(player1, new Position(0, 0));
             board.Roll(player2, new Position(1, 0));
             board.Roll(player1, new Position(1, 1));
             board.Roll(player2, new Position(2, 1));
             board.Roll(player1, new Position(2, 2));
 
-            // El estado es Player 1 Wins
             Assert.AreEqual(board.Status(), TicTacToeStatus.Player1Winner);
         }
 
@@ -302,7 +269,6 @@ namespace Calisthenic {
             var player1 = new Player("X");
             var player2 = new Player("O");
 
-            // Realizo 6 jugadas 
             board.Roll(player1, new Position(1, 0));
             board.Roll(player2, new Position(0, 0));
             board.Roll(player1, new Position(1, 2));
@@ -310,7 +276,6 @@ namespace Calisthenic {
             board.Roll(player1, new Position(2, 1));
             board.Roll(player2, new Position(2, 2));
 
-            // El estado es Player 2 Wins
             Assert.AreEqual(board.Status(), TicTacToeStatus.Player2Winner);
         }
 
@@ -319,14 +284,12 @@ namespace Calisthenic {
             var player1 = new Player("X");
             var player2 = new Player("O");
 
-            // Realizo 5 jugadas 
             board.Roll(player1, new Position(2, 0));
             board.Roll(player2, new Position(1, 0));
             board.Roll(player1, new Position(1, 1));
             board.Roll(player2, new Position(2, 1));
             board.Roll(player1, new Position(0, 2));
 
-            // El estado es Player 1 Wins
             Assert.AreEqual(board.Status(), TicTacToeStatus.Player1Winner);
         }
 
@@ -335,7 +298,6 @@ namespace Calisthenic {
             var player1 = new Player("X");
             var player2 = new Player("O");
 
-            // Realizo 5 jugadas 
             board.Roll(player1, new Position(1, 0));
             board.Roll(player2, new Position(2, 0));
             board.Roll(player1, new Position(1, 2));
@@ -343,7 +305,6 @@ namespace Calisthenic {
             board.Roll(player1, new Position(0, 1));
             board.Roll(player2, new Position(0, 2));
 
-            // El estado es Player 1 Wins
             Assert.AreEqual(board.Status(), TicTacToeStatus.Player2Winner);
         }
     }
