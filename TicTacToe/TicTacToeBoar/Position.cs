@@ -1,4 +1,4 @@
-namespace Calisthenic {
+namespace TicTacToeBoard {
     public class Position {
         public int X { get; }
         public int Y { get; }

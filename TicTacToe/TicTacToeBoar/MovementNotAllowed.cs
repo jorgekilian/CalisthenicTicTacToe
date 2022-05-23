@@ -1,5 +1,5 @@
 using System;
 
-namespace Calisthenic {
+namespace TicTacToeBoard {
     public class MovementNotAllowed : Exception { }
 }

@@ -1,4 +1,4 @@
-namespace Calisthenic {
+namespace TicTacToeBoard {
     public class TicTacToeBoard {
         private readonly string[,] size = new string[3, 3];
         private int rollNumber = 0;
@@ -126,12 +126,12 @@ namespace Calisthenic {
         }
 
     }
-}
 
-public enum TicTacToeStatus {
-    NotStarted,
-    Playing,
-    Draw,
-    Player1Winner,
-    Player2Winner
+    public enum TicTacToeStatus {
+        NotStarted,
+        Playing,
+        Draw,
+        Player1Winner,
+        Player2Winner
+    }
 }

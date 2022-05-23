@@ -1,5 +1,6 @@
 using NSubstitute;
 using NUnit.Framework;
+using TicTacToeBoard;
 
 namespace Calisthenic {
     public class TicTacToeSpecs {
@@ -39,11 +40,11 @@ namespace Calisthenic {
         //          --  Valores en diagonal abajo-derecha     \
         //          --  Teniendo en cuenta si está en un borde
 
-        private TicTacToeBoard board;
+        private TicTacToeBoard.TicTacToeBoard board;
 
         [SetUp]
         public void Setup() {
-            board = new TicTacToeBoard();
+            board = new TicTacToeBoard.TicTacToeBoard();
         }
 
         [Test]
@@ -166,7 +167,7 @@ namespace Calisthenic {
             var player1 = new Player("X");
             var player2 = new Player("O");
 
-            var mBoard = Substitute.For<TicTacToeBoard>();
+            var mBoard = Substitute.For<TicTacToeBoard.TicTacToeBoard>();
 
             mBoard.Roll(player1, new Position(0, 0));
             mBoard.Roll(player2, new Position(0, 1));
@@ -182,7 +183,7 @@ namespace Calisthenic {
             var player1 = new Player("X");
             var player2 = new Player("O");
 
-            var mBoard = Substitute.For<TicTacToeBoard>();
+            var mBoard = Substitute.For<TicTacToeBoard.TicTacToeBoard>();
 
             mBoard.Roll(player1, new Position(0, 0));
             mBoard.Roll(player2, new Position(0, 1));
